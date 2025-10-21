@@ -1,0 +1,66 @@
+package com.demo.service;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import com.demo.beans.Employee;
+
+public class EmpService {
+	
+	private static List<Employee> emparr = new ArrayList<>();
+	
+	public static void addEmp(String empName, int empId, String empRole) {
+		boolean status = emparr.add(new Employee(empName, empId, empRole));
+		if(status) {
+			System.out.println("Added Succesfully!");
+		}else {
+			System.out.println("Not Added");
+		}
+	}
+
+	public static boolean removeEmp(int id) {
+		return emparr.removeIf(emp -> emp.getEmpId() == id);		
+	}
+	
+	public static List<Employee> displayAll() {
+		return emparr;
+	}
+
+	public static List<Employee> sortedList() {
+		ArrayList<Employee> sortedList = new ArrayList<>(emparr);
+        Collections.sort(sortedList); // Sorts using the compareTo method in Employee
+
+        return sortedList;
+	}
+
+	public static Employee findByName(String nm) {
+		for(Employee e: emparr) {
+			if(e.getEmpName().equals(nm)) {
+					return e;
+				}
+			}
+		return null;
+	}
+
+	public static void saveFile() {
+        try (FileWriter writer = new FileWriter("employees.txt")) {
+            for (Employee emp : emparr) {
+                writer.write(emp.getEmpId() + "," + emp.getEmpName() + "," + emp.getEmpRole() + "\n");
+            }
+            System.out.println("Successfully saved all employees to employees.txt");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving to file.");
+            e.printStackTrace();
+        }
+    }
+	}
+
+	
+	
+	
+}

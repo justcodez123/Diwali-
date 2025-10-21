@@ -1,0 +1,29 @@
+package com.demo.service;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.demo.beans.Employee;
+
+public class EmpService {
+
+	private static List<Employee> emparr = new ArrayList<>();
+	
+	public static void addEmp(String empName, int empId, String empRole) {
+		boolean status = emparr.add(new Employee(empName, empId, empRole));
+		if(status) {
+			System.out.println("Added Succesfully!");
+		}else {
+			System.out.println("Not Added");
+		}
+	}
+
+	public static boolean removeEmp(int id) {
+		return emparr.removeIf(emp -> emp.getEmpId() == id);		
+	}
+	
+	public static List<Employee> displayAll() {
+		return emparr;
+	}
+	
+	
+}

@@ -1,0 +1,106 @@
+package com.demo.test;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import com.demo.beans.Employee;
+import com.demo.service.EmpService;
+/*
+ * Write a menu driven program to demonstrate following operations using ArrayList of "Employee": 
+1. Add Employee to list 
+2. Remove Employee list 
+3. Show all Employee 
+4. Show all Employee in sorted order (sort on the basis of empID) 
+5. Find a Employee with empName 
+6. Save all Employees into file 
+7. Quit
+ * */
+public class EmpTest {
+
+	public static void main(String[] args) {
+		int ch;
+		Scanner sc = new Scanner(System.in);
+		
+		do {
+			System.out.println("1.Add Employee to list \n 2.Remove Employee list");
+			System.out.println("3.Show All \n 4.Show Employee in sorted ");
+			System.out.println("5.Find by Name \n 6.Save all employees into file");
+			System.out.println("Enter your choice!");
+			ch = sc.nextInt();
+			
+			switch(ch) {
+				case 1 -> {
+					System.out.println("Enter an Employee Name:");
+					String empName = sc.next();
+					System.out.println("Enter Employee Id:");
+					int empId = sc.nextInt();
+					System.out.println("Enter an Employee Role:");
+					String empRole = sc.next();
+					
+					EmpService.addEmp(empName, empId, empRole);
+				}
+				
+				case 2-> {
+					System.out.println("Enter Employee Id");
+					int id = sc.nextInt();
+					boolean status = EmpService.removeEmp(id);
+					if(status) {
+						System.out.println("Removed Succesfully");
+					}else {
+						System.out.println("Not Found!");
+					}
+				}
+				
+				case 3 -> {
+					List<Employee>res = EmpService.displayAll();
+					for(Employee e : res) {
+						System.out.println(e);
+					}
+					
+				}
+				
+				case 4 -> {
+					List<Employee>res = EmpService.sortedList();
+					if(res!=null) {
+						System.out.println("Employees in sorted order:");
+						for(Employee e:res) {
+							System.out.println(e);
+						}
+					}else {
+						System.out.println("Empty List");
+					}
+				}
+				
+				case 5 -> {
+					System.out.println("Enter the Employee Name");
+					String nm = sc.next();
+					
+					Employee res = EmpService.findByName(nm);
+					if(res != null) {
+						System.out.println("Employee Found ! Details:");
+						System.out.println(res);
+					}else {
+						System.out.println("Not Found!");
+					}
+				}
+				
+				case 6 -> {
+					
+				}
+				
+				case 7 -> {
+					System.out.println("Thanks for the visit!");
+					sc.close();
+				}
+				
+				default -> {
+					System.out.println("Thanks for visiting!");
+				}
+			}
+			
+			
+		}while(ch != 7);
+
+	}
+
+}

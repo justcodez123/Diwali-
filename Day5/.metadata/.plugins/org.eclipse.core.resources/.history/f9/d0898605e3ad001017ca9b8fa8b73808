@@ -1,0 +1,31 @@
+package com.demo.service;
+import com.demo.beans.Employee;
+
+public class EmpService {
+
+	static Employee emparr[];
+	static int count = 0;
+	static {
+		emparr = new Employee[100];
+		count = 0;
+	}
+	
+	public static boolean addEmp(String empName, int empId, String empRole) {
+		if(count<emparr.length) {
+			emparr[count] = new Employee(empName, empId, empRole);
+			count++;
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean removeEmp(int iD) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	
+	
+	
+	
+}
